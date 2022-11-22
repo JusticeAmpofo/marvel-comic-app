@@ -12,6 +12,12 @@ const characterReducer = (state, action) => {
                 firstRequestMade: true,
                 loading: false
             }
+        case 'GET_CHARACTER':
+            return {
+                ...state,
+                character: action.payload,
+                loading: false
+            }
         default:
             return state
     }
