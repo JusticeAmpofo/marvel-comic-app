@@ -9,6 +9,7 @@ const characterReducer = (state, action) => {
             return {
                 ...state,
                 characters: action.payload,
+                firstRequestMade: true,
                 loading: false
             }
         default:
