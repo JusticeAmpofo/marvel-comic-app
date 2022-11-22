@@ -46,4 +46,29 @@ const searchCharacters = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { getCharacters, searchCharacters }
+// @desc    Get a single character
+// @route   /api/characters/ids/:characterId
+// @access  Public
+const getCharacter = asyncHandler(async (req, res) => {
+    const ts = new Date().toString()
+
+    const hash = getHash(ts, privateKey, publicKey)
+
+    const characterId = req.params.characterId
+
+    const response = await axios.get(`${baseURL}/characters/${characterId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`)
+
+    if(response.data) {
+        const { data } = response
+        res.json({ data })
+    } else {
+        res.status(401)
+        throw new Error('Invalid API Request')
+    }
+})
+
+module.exports = { 
+    getCharacters, 
+    searchCharacters, 
+    getCharacter 
+}
