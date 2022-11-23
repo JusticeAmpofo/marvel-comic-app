@@ -6,7 +6,7 @@ const CharacterContext = createContext()
 export const CharacterProvider = ({ children }) => {
     const initialState = {
         characters: [],
-        character: [],
+        character: {},
         firstRequestMade: false,
         loading: false
     }
