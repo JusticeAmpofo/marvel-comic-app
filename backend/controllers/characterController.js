@@ -15,6 +15,18 @@ const getCharacters = asyncHandler(async (req, res) => {
     const hash = getHash(ts, privateKey, publicKey)
 
     const response = await axios.get(`${baseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`)
+        .catch(function (error) {
+            if(error.response) {
+                // Request made and server responded
+                res.status(error.response.data.code)
+                throw new Error(error.response.data.status)
+            } else if(error.request) {
+                // The request was made but no response was received
+                throw new Error('Response not received')
+            } else {
+                throw new Error('Something happened in setting up the request that triggered an Error')
+            }
+        })
 
     if(response.data) {
         const { data } = response
@@ -36,6 +48,18 @@ const searchCharacters = asyncHandler(async (req, res) => {
     const character = req.params.characterName
 
     const response = await axios.get(`${baseURL}/characters?nameStartsWith=${character}&ts=${ts}&apikey=${publicKey}&hash=${hash}`)
+        .catch(function (error) {
+            if(error.response) {
+                // Request made and server responded
+                res.status(error.response.data.code)
+                throw new Error(error.response.data.status)
+            } else if(error.request) {
+                // The request was made but no response was received
+                throw new Error('Response not received')
+            } else {
+                throw new Error('Something happened in setting up the request that triggered an Error')
+            }
+        })
 
     if(response.data) {
         const { data } = response
@@ -57,6 +81,18 @@ const getCharacter = asyncHandler(async (req, res) => {
     const characterId = req.params.characterId
 
     const response = await axios.get(`${baseURL}/characters/${characterId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`)
+        .catch(function (error) {
+            if(error.response) {
+                // Request made and server responded
+                res.status(error.response.data.code)
+                throw new Error(error.response.data.status)
+            } else if(error.request) {
+                // The request was made but no response was received
+                throw new Error('Response not received')
+            } else {
+                throw new Error('Something happened in setting up the request that triggered an Error')
+            }
+        })
 
     if(response.data) {
         const { data } = response

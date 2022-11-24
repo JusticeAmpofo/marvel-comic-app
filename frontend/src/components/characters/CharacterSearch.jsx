@@ -12,7 +12,7 @@ function CharacterSearch() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if(text === '') {
+        if(text.trim() === '') {
             alert('Please enter something')
         } else {
             dispatch({ type: 'SET_LOADING' })
