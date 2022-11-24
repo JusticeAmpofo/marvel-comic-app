@@ -4,13 +4,13 @@ import CharacterContext from '../../context/characters/CharacterContext'
 import CharacterItem from './CharacterItem'
 
 function CharacterResults() {
-    const { characters, firstRequestMade, loading } = useContext(CharacterContext)
+    const { characters, firstRequestMade, isError, loading } = useContext(CharacterContext)
 
-    if(!loading && !firstRequestMade) {
+    if(!loading && !firstRequestMade && !isError) {
         return (
             <></>
         )
-    } else if(!loading && firstRequestMade) {
+    } else if(!loading && firstRequestMade && !isError) {
         return (
             <>
                 {characters.length === 0 ? (
@@ -22,6 +22,12 @@ function CharacterResults() {
                         ))}
                     </ul>
                 )}
+            </>
+        )
+    } else if(isError) {
+        return (
+            <>
+                <p className='text-center'>Something went wrong. Please try again.</p>
             </>
         )
     } else {

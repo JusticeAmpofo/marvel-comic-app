@@ -16,8 +16,12 @@ function CharacterSearch() {
             alert('Please enter something')
         } else {
             dispatch({ type: 'SET_LOADING' })
-            const characters = await searchCharacters(text)
-            dispatch({ type: 'SEARCH_CHARACTERS', payload: characters })
+            try {
+                const characters = await searchCharacters(text)
+                dispatch({ type: 'SEARCH_CHARACTERS', payload: characters })
+            } catch (error) {
+                dispatch({ type: 'ERROR_FOUND' })
+            }
         }
     }
 

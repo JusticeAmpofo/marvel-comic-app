@@ -1,19 +1,23 @@
 import { useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import CharacterContext from '../context/characters/CharacterContext'
 import { getCharacter } from '../context/characters/CharacterActions'
 import Loader from '../components/layout/Loader'
 
 function Character() {
-    const { character, loading, dispatch } = useContext(CharacterContext)
+    const { character, loading, isError, dispatch } = useContext(CharacterContext)
 
     const params = useParams()
 
     useEffect(() => {
         dispatch({ type: 'SET_LOADING' })
         const getCharacterData = async () => {
-            const characterData = await getCharacter(params.characterId)
-            dispatch({ type: 'GET_CHARACTER', payload: characterData })
+            try {
+                const characterData = await getCharacter(params.characterId)
+                dispatch({ type: 'GET_CHARACTER', payload: characterData })
+            } catch (error) {
+                dispatch({ type: 'ERROR_FOUND' })
+            }
         }
 
         getCharacterData()
@@ -32,7 +36,7 @@ function Character() {
         return copy
     }
 
-    if(!loading) {
+    if(!loading && !isError) {
         return (
             <div className='flex flex-col md:flex-row'>
                 <div className='max-w-sm mx-auto md:ml-0 md:mr-0 md:w-1/4'>
@@ -43,6 +47,13 @@ function Character() {
                     <p>{handleDescription()}</p>
                 </div>
             </div>
+        )
+    }  if(isError) {
+        return (
+            <>
+                <h2 className='font-bold mb-8 text-2xl text-center'>Sorry...</h2>
+                <p className='text-center'>Something went wrong. Please go to the <Link to={'/'} className='underline'>Home</Link> page to search for a character</p>
+            </>
         )
     } else {
         return <Loader />

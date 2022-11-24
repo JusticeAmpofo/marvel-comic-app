@@ -8,6 +8,7 @@ export const CharacterProvider = ({ children }) => {
         characters: [],
         character: {},
         firstRequestMade: false,
+        isError: false,
         loading: false
     }
 

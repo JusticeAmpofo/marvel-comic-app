@@ -3,6 +3,7 @@ const characterReducer = (state, action) => {
         case 'SET_LOADING':
             return {
                 ...state,
+                isError: false,
                 loading: true
             }
         case 'SEARCH_CHARACTERS':
@@ -16,6 +17,12 @@ const characterReducer = (state, action) => {
             return {
                 ...state,
                 character: action.payload,
+                loading: false
+            }
+        case 'ERROR_FOUND':
+            return {
+                ...state,
+                isError: true,
                 loading: false
             }
         default:
