@@ -39,7 +39,7 @@ function CharacterSearch() {
                         />
                     </div>
                     <div className='form-control'>
-                        <button type='submit' className='bg-iris py-2 rounded-full w-full'>
+                        <button type='submit' className='bg-iris hover:bg-medium-slate-blue py-2 rounded-full w-full'>
                             Search
                         </button>
                     </div>
